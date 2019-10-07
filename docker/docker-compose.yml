@@ -36,7 +36,7 @@ version: '3.7'
 
 services:
   php:
-    image: neomerx/ip2i-service-alpine
+    image: neomerx/ip2i-service
     container_name: ip2i_service
 
   nginx:
