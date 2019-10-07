@@ -1,9 +1,10 @@
 FROM php:7.3-fpm-alpine
 
-COPY public /app/public/
-COPY server /app/server/
-COPY vendor /app/vendor/
-COPY .env   /app/.env
+COPY public                       /app/public/
+COPY server                       /app/server/
+COPY vendor                       /app/vendor/
+COPY .env                         /app/.env
+COPY docker/fpm.alpine/policy.xml /etc/ImageMagick-7/policy.xml
 
 WORKDIR "/app"
 

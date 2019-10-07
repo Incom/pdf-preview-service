@@ -179,7 +179,8 @@ EOT;
 
             $source = new Imagick();
             $source->setResolution($resolution, $resolution);
-            $source->readImage($fileName . '[0]'); // first page from pdf
+            // Without an explicit image type in the filename, ImageMagick guesses the image type.
+            $source->readImage('pdf:' . $fileName . '[0]'); // first page from pdf
 
             $image  = (new ImageManager(['driver' => 'imagick']))->make($source);
             $image->resize($width, $height, function (Constraint $constraint) {
