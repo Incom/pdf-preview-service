@@ -1,6 +1,6 @@
 .idea/
 .vscode/
-node_modules/
+letsencrypt/
 vendor/
 .env
 composer.lock
