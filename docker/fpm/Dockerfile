@@ -1,24 +1,12 @@
-FROM php:7.3-fpm-alpine
+FROM neomerx/ip2i-fpm-base
 
-COPY public                /app/public/
-COPY server                /app/server/
-COPY vendor                /app/vendor/
-COPY .env                  /app/.env
-COPY docker/fpm/policy.xml /etc/ImageMagick-7/policy.xml
+COPY public                             /app/public/
+COPY server                             /app/server/
+COPY vendor                             /app/vendor/
+COPY .env                               /app/.env
+COPY docker/fpm/policy.xml              /etc/ImageMagick-7/policy.xml
+COPY docker/fpm/file_upload_config.ini  /usr/local/etc/php/conf.d/file_upload_config.ini
 
 WORKDIR "/app"
 
-RUN apk update && apk upgrade && apk add \
-        autoconf g++ libtool make pcre-dev \
-        ghostscript \
-        php7-pecl-imagick imagemagick imagemagick-dev \
-		php7-gd libjpeg-turbo-dev libpng-dev \
-		php7-intl icu-dev \
-	&& pecl install imagick \
-	&& docker-php-ext-enable imagick \
-	&& docker-php-ext-configure gd --with-png-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
-	&& docker-php-ext-install -j$(nproc) \
-		gd \
-        intl \
-    && apk del autoconf g++ libtool make pcre-dev \
-    && chmod a+r -R /app;
+RUN chmod a+r -R /app;

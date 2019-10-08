@@ -51,9 +51,9 @@ services:
         target: /etc/letsencrypt/
     ports:
       - target: 80
-        published: 8080
+        published: 8090
       - target: 443
-        published: 8083
+        published: 8091
     depends_on:
       - php
     links:

@@ -76,12 +76,11 @@
      before deleting a temporary file (2,5X execution time).
     -->
     <policy domain="system" name="memory-map" value="anonymous"/>
-    <policy domain="cache" name="memory-map" value="anonymous"/>
+    <!--<policy domain="cache" name="memory-map" value="anonymous"/>-->
+    <!--<policy domain="cache" name="synchronize" value="True"/>-->
     <!--policy domain="system" name="shred" value="1"/-->
 
     <policy domain="system" name="max-memory-request" value="256MiB"/>
-
-    <policy domain="cache" name="synchronize" value="True"/>
 
     <policy domain="module" rights="none" pattern="{PS,XPS}" />
     <policy domain="coder" rights="none" pattern="{MVG,EPS,PS,PS2,PS3,GIF,WEBP}" />
