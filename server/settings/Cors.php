@@ -26,6 +26,12 @@ class Cors extends CorsSettings
                  */
                 static::KEY_ALLOWED_ORIGINS => [
                     'http://localhost:8080',
+                    'http://localhost:8090',
+                    'http://localhost:8091',
+                    'http://ip2i.neomerx.com',
+                    'https://ip2i.neomerx.com',
+                    'http://ip2i.neomerx.com:80',
+                    'https://ip2i.neomerx.com:443',
                 ],
 
                 /**
