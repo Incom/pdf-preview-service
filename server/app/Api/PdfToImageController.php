@@ -18,7 +18,9 @@ use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\UploadedFileInterface;
 use RuntimeException;
 use Throwable;
+use Zend\Diactoros\Response;
 use Zend\Diactoros\Response\HtmlResponse;
+use Zend\Diactoros\Stream;
 use function array_intersect_key;
 use function assert;
 use function count;
@@ -151,6 +153,7 @@ EOT;
         ServerRequestInterface $request
     ): ResponseInterface {
         $fileName = static::getUploadedFileFromInput($request);
+        $source   = null;
         try {
             $mime = static::getMimeType($fileName);
             if ($mime !== static::MIME_PDF) {
@@ -188,11 +191,23 @@ EOT;
                 $constraint->upsize();
             })->orientate();
 
-            return $image->psrResponse(static::MIME_JPG, $quality);
+            $content = $image->encode(static::MIME_JPG, $quality)->getEncoded();
+            unset($image);
+
+            $stream = new Stream('php://temp', 'wb+');
+            $stream->write($content);
+            $stream->rewind();
+
+            return new Response($stream, 200, ['Content-Type' => static::MIME_JPG]);
 
         } catch (ImagickException | ImageException $exception) {
             throw static::createException('Error while converting input file.', static::HTTP_BAD_REQUEST, $exception);
         } finally {
+            if ($source !== null) {
+                $source->clear();
+                unset($source);
+            }
+
             /** @var FileSystemInterface $fs */
             $fs = $container->get(FileSystemInterface::class);
             $fs->delete($fileName);
