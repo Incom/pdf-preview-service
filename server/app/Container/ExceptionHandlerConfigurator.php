@@ -2,14 +2,10 @@
 
 namespace App\Container;
 
-use Limoncello\Application\ExceptionHandlers\WhoopsThrowableHtmlHandler;
 use Limoncello\Application\ExceptionHandlers\WhoopsThrowableJsonHandler;
-use Limoncello\Application\ExceptionHandlers\WhoopsThrowableTextHandler;
 use Limoncello\Contracts\Application\ContainerConfiguratorInterface;
 use Limoncello\Contracts\Container\ContainerInterface as LimoncelloContainerInterface;
 use Limoncello\Contracts\Exceptions\ThrowableHandlerInterface;
-use Psr\Container\ContainerInterface as PsrContainerInterface;
-use function php_sapi_name;
 
 /**
  * @package App\Container

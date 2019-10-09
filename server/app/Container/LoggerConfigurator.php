@@ -58,4 +58,5 @@ class LoggerConfigurator implements ContainerConfiguratorInterface
         $handler->pushProcessor(new UidProcessor());
 
         return $handler;
-    }}
+    }
+}
