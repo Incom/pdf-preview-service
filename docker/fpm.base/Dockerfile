@@ -1,17 +1,18 @@
-FROM php:7.3-fpm-alpine
+FROM php:7.3-fpm
 
 WORKDIR "/app"
 
-RUN apk update && apk upgrade && apk add \
-        autoconf g++ libtool make pcre-dev \
+ARG DEBIAN_FRONTEND=noninteractive
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
         ghostscript \
-        php7-pecl-imagick imagemagick imagemagick-dev \
-		php7-gd libjpeg-turbo-dev libpng-dev \
-		php7-intl icu-dev \
+        libmagickwand-dev \
+        libjpeg62-turbo-dev \
+        libpng-dev \
 	&& pecl install imagick \
 	&& docker-php-ext-enable imagick \
 	&& docker-php-ext-configure gd --with-png-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
 	&& docker-php-ext-install -j$(nproc) \
 		gd \
         intl \
-    && apk del autoconf g++ libtool make pcre-dev;
+    && apt-get clean; rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /usr/share/doc/*;
