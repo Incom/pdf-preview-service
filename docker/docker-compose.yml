@@ -32,12 +32,13 @@
 # $ docker-compose -f <file_name.yml> down
 # $ docker-compose -f <file_name.yml> stop
 
+# Scale with command `docker-compose up -d --scale php=4`
+
 version: '3.7'
 
 services:
   php:
     image: neomerx/ip2i-service
-    container_name: ip2i_service
 
   nginx:
     image: neomerx/ip2i-web
